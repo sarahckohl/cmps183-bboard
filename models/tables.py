@@ -5,7 +5,9 @@ db.define_table('bboard',
                 Field('phone'),
                 Field('email'),
                 Field('date_posted', 'datetime'),
-                Field('message', 'text'),
+                Field('bbmessage', 'text'),
                 )
+
+db.bboard.bbmessage.label = 'Message'
 
 
