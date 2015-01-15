@@ -18,6 +18,7 @@ db.define_table('bboard',
                 Field('email'),
                 Field('category'),
                 Field('date_posted', 'datetime'),
+                Field('title'),
                 Field('bbmessage', 'text'),
                 )
 
