@@ -84,13 +84,16 @@ def index2():
         return row.bbmessage[:10] + '...'
     
     # Creates extra buttons.
+    
     links = [
-        dict(header='Post', body = shorten_post),   
         dict(header='', body = generate_del_button),
         dict(header='', body = generate_edit_button),
         ]
 
-    db.bboard.bbmessage.readable = False
+    if len(request.args) == 0:
+        # We are in the main index.
+        links.append(dict(header='Post', body = shorten_post))
+        db.bboard.bbmessage.readable = False
     
     form = SQLFORM.grid(q,
         fields=[db.bboard.user_id, db.bboard.date_posted, 
@@ -98,6 +101,7 @@ def index2():
                 db.bboard.bbmessage],
         editable=False, deletable=False,
         links=links,
+        paginate=2,
         )
     return dict(form=form)
 
