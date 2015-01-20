@@ -10,7 +10,7 @@ def get_first_name():
 
 CATEGORY = ['For Sale', 'Wanted', 'Misc']
 
-
+# This is the main table, containing the posts.
 db.define_table('bboard',
                 Field('name'),
                 Field('user_id', db.auth_user),
