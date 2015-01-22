@@ -9,7 +9,7 @@
 ## - api is an example of Hypermedia API support and access control
 #########################################################################
 
-def index():
+def index2():
     """
     This index appears when you go to bboard/default/index . 
     """
@@ -39,6 +39,10 @@ def view():
 def edit():
     """View a post."""
     # p = db(db.bboard.id == request.args(0)).select().first()
+    
+    #lets you change status to sold after the fact
+    db.bboard.sold.writable = True
+    
     p = db.bboard(request.args(0)) or redirect(URL('default', 'index'))
     if p.user_id != auth.user_id:
         session.flash = T('Not authorized.')
@@ -61,7 +65,7 @@ def delete():
     db(db.bboard.id == p.id).delete()
     redirect(URL('default', 'index'))
     
-def index2():
+def index():
     """Better index."""
     # Let's get all data. 
     q = db.bboard
@@ -101,7 +105,7 @@ def index2():
                 db.bboard.bbmessage],
         editable=False, deletable=False,
         links=links,
-        paginate=2,
+        paginate=5,
         )
     return dict(form=form)
 
