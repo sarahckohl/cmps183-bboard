@@ -31,7 +31,7 @@ def view():
     """View a post."""
     # p = db(db.bboard.id == request.args(0)).select().first()
     p = db.bboard(request.args(0)) or redirect(URL('default', 'index'))
-    form = SQLFORM(db.bboard, record=p, readonly=True)
+    form = SQLFORM(db.bboard, record=p, readonly=True,upload=URL('download'))
     # p.name would contain the name of the poster.
     return dict(form=form)
 
@@ -74,14 +74,14 @@ def index():
         # If the record is ours, we can delete it.
         b = ''
         if auth.user_id == row.user_id:
-            b = A('Delete', _class='btn', _href=URL('default', 'delete', args=[row.id]))
+            b = A('Delete', _class='btn', _href=URL('default', 'delete', args=[row.id],user_signature=True ))
         return b
     
     def generate_edit_button(row):
         # If the record is ours, we can delete it.
         b = ''
         if auth.user_id == row.user_id:
-            b = A('Edit', _class='btn', _href=URL('default', 'edit', args=[row.id]))
+            b = A('Edit', _class='btn', _href=URL('default', 'edit', args=[row.id],user_signature=True ))
         return b
     
     def shorten_post(row):
@@ -106,6 +106,7 @@ def index():
         editable=False, deletable=False,
         links=links,
         paginate=5,
+        upload=URL('download'),
         )
     return dict(form=form)
 

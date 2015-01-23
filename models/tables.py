@@ -47,8 +47,8 @@ db.bboard.date_posted.writable = False
 db.bboard.user_id.default = auth.user_id
 db.bboard.user_id.writable = db.bboard.user_id.readable = False
 db.bboard.email.requires = IS_EMAIL()
-db.bboard.category.requires = IS_IN_SET(CATEGORY)
-db.bboard.sold.requires = IS_IN_SET(STATUS)
+db.bboard.category.requires = IS_IN_SET(CATEGORY, zero=None)
+db.bboard.sold.requires = IS_IN_SET(STATUS, zero=None)
 db.bboard.category.default = 'Misc.'
 db.bboard.category.notnull = True
 db.bboard.sold.notnull = True
